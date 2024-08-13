@@ -1,0 +1,1274 @@
+{
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Este servicio entrega las mallas y planes de estudio de un estudiante de la Universidad de Magallanes.",
+        "title": "Servicio de Mallas",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "CITIAPS",
+            "url": "https://citiaps.cl",
+            "email": "citiaps@usach.cl"
+        },
+        "license": {
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "backend.localhost",
+    "basePath": "/api/v1",
+    "paths": {
+        "/mallas/cursos_complementarios/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Esta función obtiene la malla con cursos complementarios del usuario",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Malla"
+                ],
+                "summary": "Obtiene la malla con cursos complementarios del usuario autenticado",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id de la malla a consultar",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Consulta realizada con éxito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.MallaPionero"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No se encontró datos.",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/mallas/pdf/malla/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Esta función genera un archivo PDF con la malla del usuario autenticado en base al Bearer Token que viene en el encabezado del request.",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pdf"
+                ],
+                "summary": "Genera un archivo PDF con la malla del usuario autenticado",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id de la malla a consultar",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Un archivo PDF con la malla del usuario autenticado.",
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    "404": {
+                        "description": "No se encontró datos.",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/mallas/plan/": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Esta función obtiene todos los planes de estudio.",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Plan"
+                ],
+                "summary": "Obtiene todos los planes de estudio",
+                "responses": {
+                    "200": {
+                        "description": "Consulta realizada con éxito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Plan"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No se encontró datos.",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/mallas/plan/carreras/": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Esta función obtiene los planes de estudio del usuario autenticado en base al Bearer Token que viene en el encabezado del request.",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Plan"
+                ],
+                "summary": "Obtiene los planes de estudio del usuario autenticado",
+                "responses": {
+                    "200": {
+                        "description": "Consulta realizada con éxito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Plan"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No se encontró datos.",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/mallas/plan/plan/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Esta función obtiene un plan de estudio en base a su id.",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Plan"
+                ],
+                "summary": "Obtiene un plan de estudio",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id del plan a consultar",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Consulta realizada con éxito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Plan"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No se encontró datos.",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/mallas/sin_cursos_complementarios/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Esta función obtiene la malla sin cursos complementarios del usuario autenticado en base al Bearer Token que viene en el encabezado del request.",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Malla"
+                ],
+                "summary": "Obtiene la malla sin cursos complementarios del usuario autenticado",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id de la malla a consultar",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Consulta realizada con éxito",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.MallaPionero"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No se encontró datos.",
+                        "schema": {
+                            "$ref": "#/definitions/controller.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controller.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.AreaCarrera": {
+            "type": "object",
+            "properties": {
+                "carrerasTotales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CarreraTotal"
+                    }
+                },
+                "cod_carea_carrera": {
+                    "type": "integer"
+                },
+                "nom_area_carrera": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CargaParcial": {
+            "type": "object",
+            "properties": {
+                "ano": {
+                    "type": "integer"
+                },
+                "cant_grupos_practica": {
+                    "type": "integer"
+                },
+                "cant_grupos_teoria": {
+                    "type": "integer"
+                },
+                "cargasTotales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CargaTotal"
+                    }
+                },
+                "cod_curso_dictar": {
+                    "type": "integer"
+                },
+                "hrs_crono_presen_semestral": {
+                    "type": "number"
+                },
+                "hrs_ejercicio": {
+                    "type": "number"
+                },
+                "hrs_practica": {
+                    "type": "number"
+                },
+                "hrs_teoria": {
+                    "type": "number"
+                },
+                "id_carga_parcial": {
+                    "type": "integer"
+                },
+                "planes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Plan"
+                    }
+                },
+                "sem": {
+                    "type": "integer"
+                },
+                "tipo_curso": {
+                    "type": "integer"
+                },
+                "total_hrs_docencia": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.CargaTotal": {
+            "type": "object",
+            "properties": {
+                "cantidad_estimada_alum": {
+                    "type": "integer"
+                },
+                "cargaParcial": {
+                    "$ref": "#/definitions/models.CargaParcial"
+                },
+                "cargasTotalesProfesores": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CargaTotalProfesor"
+                    }
+                },
+                "cod_tipo_seccion": {
+                    "type": "integer"
+                },
+                "hcp": {
+                    "type": "integer"
+                },
+                "id_carga_parcial": {
+                    "type": "integer"
+                },
+                "id_carga_total": {
+                    "type": "integer"
+                },
+                "nom_grupo": {
+                    "type": "string"
+                },
+                "num_grupos": {
+                    "type": "integer"
+                },
+                "tipoSeccion": {
+                    "$ref": "#/definitions/models.TipoSeccion"
+                },
+                "usuariosAulas": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.UsuarioAula"
+                    }
+                }
+            }
+        },
+        "models.CargaTotalProfesor": {
+            "type": "object",
+            "properties": {
+                "cargaTotal": {
+                    "$ref": "#/definitions/models.CargaTotal"
+                },
+                "cod_estado_carga": {
+                    "type": "integer"
+                },
+                "cod_persona": {
+                    "type": "string"
+                },
+                "id_carga_total": {
+                    "type": "integer"
+                },
+                "id_carga_total_profesor": {
+                    "type": "integer"
+                },
+                "tipo_carga": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Carrera": {
+            "type": "object",
+            "properties": {
+                "carrerasTotales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CarreraTotal"
+                    }
+                },
+                "cod_carrera": {
+                    "type": "string"
+                },
+                "nom_carrera": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CarreraTotal": {
+            "type": "object",
+            "properties": {
+                "ano_cierre": {
+                    "type": "integer"
+                },
+                "ano_creacion": {
+                    "type": "integer"
+                },
+                "areaCarrera": {
+                    "$ref": "#/definitions/models.AreaCarrera"
+                },
+                "area_conocimiento_cna_id": {
+                    "type": "integer"
+                },
+                "carrera": {
+                    "$ref": "#/definitions/models.Carrera"
+                },
+                "centro": {
+                    "$ref": "#/definitions/models.CentroUniversitario"
+                },
+                "cod_area_carrera": {
+                    "type": "integer"
+                },
+                "cod_carrera": {
+                    "type": "string"
+                },
+                "cod_centro": {
+                    "type": "integer"
+                },
+                "cod_curso_dictar": {
+                    "type": "integer"
+                },
+                "cod_especialidad": {
+                    "type": "integer"
+                },
+                "cod_mencion": {
+                    "type": "integer"
+                },
+                "cod_propietario": {
+                    "type": "integer"
+                },
+                "codigo_sies": {
+                    "type": "string"
+                },
+                "especialidad": {
+                    "$ref": "#/definitions/models.Especialidad"
+                },
+                "facDep": {
+                    "$ref": "#/definitions/models.FacDep"
+                },
+                "id_carrera_total": {
+                    "type": "integer"
+                },
+                "id_fac_dep": {
+                    "type": "integer"
+                },
+                "mencion": {
+                    "$ref": "#/definitions/models.Mencion"
+                },
+                "nivelCarrera": {
+                    "$ref": "#/definitions/models.NivelCarrera"
+                },
+                "nro_decreto_creacion": {
+                    "type": "string"
+                },
+                "planes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Plan"
+                    }
+                },
+                "propietarioCarrera": {
+                    "$ref": "#/definitions/models.PropietarioCarrera"
+                },
+                "regimen": {
+                    "type": "string"
+                },
+                "vigencia": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.CentroUniversitario": {
+            "type": "object",
+            "properties": {
+                "ano_cierre": {
+                    "type": "integer"
+                },
+                "ano_inicio": {
+                    "type": "integer"
+                },
+                "carrerasTotales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CarreraTotal"
+                    }
+                },
+                "cod_centro": {
+                    "type": "integer"
+                },
+                "cod_resolucion_creacion": {
+                    "type": "string"
+                },
+                "nom_centro": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CompetenciaAsignatura": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "nom_comp_asig": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CompetenciaRc": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "nom_competencia": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CursoComun": {
+            "type": "object",
+            "properties": {
+                "cargaParcial": {
+                    "$ref": "#/definitions/models.CargaParcial"
+                },
+                "cod_tipo_curso_dictar": {
+                    "type": "integer"
+                },
+                "cod_unidad_responsable": {
+                    "type": "integer"
+                },
+                "detallesCursosComunes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.DetalleCursoComun"
+                    }
+                },
+                "hrs_crono_presen": {
+                    "type": "number"
+                },
+                "id_curso_comun": {
+                    "type": "integer"
+                },
+                "nom_curso_comun": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CursoDictar": {
+            "type": "object",
+            "properties": {
+                "ano": {
+                    "type": "integer"
+                },
+                "cargasParciales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CargaParcial"
+                    }
+                },
+                "cod_estado_curso": {
+                    "type": "integer"
+                },
+                "cod_unidad_responsable": {
+                    "type": "integer"
+                },
+                "detallesCursosComunes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.DetalleCursoComun"
+                    }
+                },
+                "hrs_crono_presen": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "id_malla": {
+                    "type": "integer"
+                },
+                "modulo": {
+                    "type": "integer"
+                },
+                "se_dicta": {
+                    "type": "integer"
+                },
+                "sem": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.CursoPionero": {
+            "type": "object",
+            "properties": {
+                "cod_tipo_modulo": {
+                    "type": "integer"
+                },
+                "competenciaAsignatura": {
+                    "$ref": "#/definitions/models.CompetenciaAsignatura"
+                },
+                "cursosPionerosCompetencias": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CursoPioneroCompetencia"
+                    }
+                },
+                "es_TEL": {
+                    "type": "integer"
+                },
+                "hrs_crono_no_presen_semestral": {
+                    "type": "number"
+                },
+                "hrs_crono_presen_semestral": {
+                    "type": "number"
+                },
+                "hrs_ejercicios": {
+                    "type": "number"
+                },
+                "hrs_practicas": {
+                    "type": "number"
+                },
+                "hrs_teoricas": {
+                    "type": "number"
+                },
+                "id_comp_asig": {
+                    "type": "integer"
+                },
+                "id_curso_pionero": {
+                    "type": "integer"
+                },
+                "id_nivel_comp": {
+                    "type": "integer"
+                },
+                "institucional": {
+                    "type": "integer"
+                },
+                "modsubsAsigcoms": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ModsubAsigcom"
+                    }
+                },
+                "modulosSubcompetencias": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ModuloSubcompetencia"
+                    }
+                },
+                "sct_total": {
+                    "type": "number"
+                },
+                "telsScts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.TelSct"
+                    }
+                }
+            }
+        },
+        "models.CursoPioneroCompetencia": {
+            "type": "object",
+            "properties": {
+                "competenciaRc": {
+                    "$ref": "#/definitions/models.CompetenciaRc"
+                },
+                "id_competencia": {
+                    "type": "integer"
+                },
+                "id_curso_pionero": {
+                    "type": "integer"
+                },
+                "id_curso_pionero_comp": {
+                    "type": "integer"
+                },
+                "id_nivel_comp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.DetalleCursoComun": {
+            "type": "object",
+            "properties": {
+                "cod_tipo_plan": {
+                    "type": "integer"
+                },
+                "cursoComun": {
+                    "$ref": "#/definitions/models.CursoComun"
+                },
+                "cursoDictar": {
+                    "$ref": "#/definitions/models.CursoDictar"
+                },
+                "idCursoComun": {
+                    "type": "integer"
+                },
+                "idCursoDictar": {
+                    "type": "integer"
+                },
+                "tipoPlan": {
+                    "$ref": "#/definitions/models.TipoPlan"
+                }
+            }
+        },
+        "models.Especialidad": {
+            "type": "object",
+            "properties": {
+                "carrerasTotales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CarreraTotal"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nom_especialidad": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.EstadoFinalMatricula": {
+            "type": "object",
+            "properties": {
+                "descripcion": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "matriculas": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Matricula"
+                    }
+                }
+            }
+        },
+        "models.EstadoInscripcion": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "nom_estado_inscripcion": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.FacDep": {
+            "type": "object",
+            "properties": {
+                "carrerasTotales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CarreraTotal"
+                    }
+                },
+                "cod_unidad_depto": {
+                    "type": "integer"
+                },
+                "cod_unidad_facultad": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.MallaPionero": {
+            "type": "object",
+            "properties": {
+                "cod_tipo_curso_malla": {
+                    "type": "integer"
+                },
+                "cursoPionero": {
+                    "$ref": "#/definitions/models.CursoPionero"
+                },
+                "curso_basico": {
+                    "type": "integer"
+                },
+                "cursosDictar": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CursoDictar"
+                    }
+                },
+                "duracion": {
+                    "type": "string"
+                },
+                "es_proyecto": {
+                    "type": "integer"
+                },
+                "frecuencia_a_dictar": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "id_curso_pionero": {
+                    "type": "integer"
+                },
+                "id_modsub": {
+                    "type": "integer"
+                },
+                "id_planes": {
+                    "type": "integer"
+                },
+                "incluye_grado": {
+                    "type": "integer"
+                },
+                "mallasRequisitos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.MallaRequisito"
+                    }
+                },
+                "nro_ano": {
+                    "type": "integer"
+                },
+                "nro_sem": {
+                    "type": "integer"
+                },
+                "plan": {
+                    "$ref": "#/definitions/models.Plan"
+                },
+                "tipoCursoMalla": {
+                    "$ref": "#/definitions/models.TipoCursoMalla"
+                }
+            }
+        },
+        "models.MallaRequisito": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "id_malla": {
+                    "type": "integer"
+                },
+                "id_malla_req": {
+                    "type": "integer"
+                },
+                "mallaPionero": {
+                    "$ref": "#/definitions/models.MallaPionero"
+                },
+                "tipo": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Matricula": {
+            "type": "object",
+            "properties": {
+                "ano_ingreso": {
+                    "type": "integer"
+                },
+                "ano_matricula": {
+                    "type": "integer"
+                },
+                "ano_primer_ingreso": {
+                    "type": "integer"
+                },
+                "ano_proceso": {
+                    "type": "integer"
+                },
+                "cod_estado_final": {
+                    "type": "integer"
+                },
+                "cod_modo_ingreso": {
+                    "type": "integer"
+                },
+                "cod_persona": {
+                    "type": "integer"
+                },
+                "cod_tipo_alumno": {
+                    "type": "integer"
+                },
+                "cod_tipo_matricula": {
+                    "type": "integer"
+                },
+                "estadoFinalMatricula": {
+                    "$ref": "#/definitions/models.EstadoFinalMatricula"
+                },
+                "id_matricula": {
+                    "type": "integer"
+                },
+                "id_planes": {
+                    "type": "integer"
+                },
+                "plan": {
+                    "$ref": "#/definitions/models.Plan"
+                },
+                "rut_alum": {
+                    "type": "string"
+                },
+                "sem_desvinculacion": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Mencion": {
+            "type": "object",
+            "properties": {
+                "carrerasTotales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CarreraTotal"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nom_mencion": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ModsubAsigcom": {
+            "type": "object",
+            "properties": {
+                "cursoPionero": {
+                    "$ref": "#/definitions/models.CursoPionero"
+                },
+                "idCursoPionero": {
+                    "type": "integer"
+                },
+                "idModsub": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.ModuloSubcompetencia": {
+            "type": "object",
+            "properties": {
+                "cod_tipo_modulo": {
+                    "type": "integer"
+                },
+                "competenciasRc": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CompetenciaRc"
+                    }
+                },
+                "hrs_a_guiado": {
+                    "type": "number"
+                },
+                "hrs_no_presenciales": {
+                    "type": "number"
+                },
+                "hrs_presenciales": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "institucional": {
+                    "type": "integer"
+                },
+                "nom_modsub": {
+                    "type": "string"
+                },
+                "sct": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.NivelCarrera": {
+            "type": "object",
+            "properties": {
+                "carrerasTotales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CarreraTotal"
+                    }
+                },
+                "descripcion": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "planes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Plan"
+                    }
+                }
+            }
+        },
+        "models.NivelGlobalCarrera": {
+            "type": "object",
+            "properties": {
+                "descripcion": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "planes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Plan"
+                    }
+                }
+            }
+        },
+        "models.Plan": {
+            "type": "object",
+            "properties": {
+                "anoPlan": {
+                    "type": "integer"
+                },
+                "caracteristicas": {
+                    "type": "string"
+                },
+                "cargaParcial": {
+                    "$ref": "#/definitions/models.CargaParcial"
+                },
+                "carreraTotal": {
+                    "$ref": "#/definitions/models.CarreraTotal"
+                },
+                "codModalidad": {
+                    "type": "integer"
+                },
+                "cod_jornada": {
+                    "type": "integer"
+                },
+                "cod_nivel_carrera": {
+                    "type": "integer"
+                },
+                "cod_nivel_global": {
+                    "type": "integer"
+                },
+                "cod_regimen": {
+                    "type": "integer"
+                },
+                "cod_tipo_plan": {
+                    "type": "integer"
+                },
+                "duracion": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "id_carga_parcial": {
+                    "type": "integer"
+                },
+                "id_carrera_total": {
+                    "type": "integer"
+                },
+                "mallasPioneros": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.MallaPionero"
+                    }
+                },
+                "matriculas": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Matricula"
+                    }
+                },
+                "nivelCarrera": {
+                    "$ref": "#/definitions/models.NivelCarrera"
+                },
+                "nivelGlobalCarrera": {
+                    "$ref": "#/definitions/models.NivelGlobalCarrera"
+                },
+                "regimen": {
+                    "$ref": "#/definitions/models.Regimen"
+                },
+                "tipoPlan": {
+                    "$ref": "#/definitions/models.TipoPlan"
+                },
+                "vigencia": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.PropietarioCarrera": {
+            "type": "object",
+            "properties": {
+                "carrerasTotales": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CarreraTotal"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nom_propietario": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Regimen": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "nom_regimen": {
+                    "type": "string"
+                },
+                "vigente": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.TelSct": {
+            "type": "object",
+            "properties": {
+                "sct_P": {
+                    "type": "integer"
+                },
+                "tel_P": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.TipoCursoMalla": {
+            "type": "object",
+            "properties": {
+                "descripcion": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.TipoPlan": {
+            "type": "object",
+            "properties": {
+                "detallesCursosComunes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.DetalleCursoComun"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nom_tipo_plan": {
+                    "type": "string"
+                },
+                "planes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Plan"
+                    }
+                }
+            }
+        },
+        "models.TipoSeccion": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "nom_tipo_seccion": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.TipoUsuario": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "nom_tipo_usuario": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UsuarioAula": {
+            "type": "object",
+            "properties": {
+                "ano": {
+                    "type": "integer"
+                },
+                "cod_estado_inscripcion": {
+                    "type": "integer"
+                },
+                "cod_persona": {
+                    "type": "integer"
+                },
+                "estadoInscripcion": {
+                    "$ref": "#/definitions/models.EstadoInscripcion"
+                },
+                "id_carga_total": {
+                    "type": "integer"
+                },
+                "id_malla": {
+                    "type": "integer"
+                },
+                "id_malla_cd": {
+                    "type": "integer"
+                },
+                "id_tipo_usuario": {
+                    "type": "integer"
+                },
+                "id_usuario_aula": {
+                    "type": "integer"
+                },
+                "mallaPionero": {
+                    "$ref": "#/definitions/models.MallaPionero"
+                },
+                "opcion": {
+                    "type": "integer"
+                },
+                "sem": {
+                    "type": "integer"
+                },
+                "tipoUsuario": {
+                    "$ref": "#/definitions/models.TipoUsuario"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "description": "BearerJWTToken in Authorization Header",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

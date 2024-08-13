@@ -1,0 +1,28 @@
+version: '3.2'
+
+services:
+  sid_umag_mallas_backend:
+    container_name: mallas-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 8223:8223
+    expose:
+      - 8223:8223
+    networks:
+      - umag_network
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mallas_backend.entrypoints=web,websecure"
+      - "traefik.http.services.mallas_backend.loadbalancer.server.port=8223"
+      - "traefik.http.routers.mallas_backend.service=mallas_backend"
+      - "traefik.http.routers.mallas_backend.rule=Host(`back.pichimalen.org`) && (PathPrefix(`/api/v1/mallas`) || PathPrefix(`/api/v1/mallas/plan`) || PathPrefix(`/api/v1/mallas/pdf`) || PathPrefix(`/api/v1/mallas/swagger`))"      
+      - "traefik.http.routers.mallas_backend.tls=true"
+
+networks:
+  umag_network:
+    external: true
